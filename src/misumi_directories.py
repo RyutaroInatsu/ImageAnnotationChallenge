@@ -6,16 +6,16 @@ class MisumiDirectories():
         self.misumi_dataset_rootpath = misumi_dataset_rootpath
         os.makedirs(self.misumi_dataset_rootpath, exist_ok=True)
 
-        self.inserts_subdirectory_list = [
+        self.inserts_list = [
             'tangless', 'threaded', 'tools_for_tangless', 'tools_for_threaded'
         ]
 
-        self.nuts_subdirectory_list = [
+        self.nuts_list = [
             'cylindrical', 'domed', 'flanged', 'hex', 'high_nuts_and_spacer', 'knurled', 'lock',
             'non-metal', 'rectangular', 'wing', 'weld', 'clinching', 'clip', 'cap', 'washer_based', 'gauge'
         ]
 
-        self.screws_bolts_subdirectory_list = [
+        self.screws_bolts_list = [
             'captive_washer_screws', 'cross_recessed_bolts', 'eye_screws_bolts',
             'fastener_accessories', 'fully-threaded_bolts', 'hex_bolts', 'hex_socket_button_head_cap',
             'hex_socket_flat_head_cap', 'hex_socket_head_cap', 'micro_screws_precise_screws',
@@ -23,7 +23,7 @@ class MisumiDirectories():
             'strippers_reamers_shoulder_bolts', 'tamper_resistant_screws', 'vented_screws', 'wing_thumb_ornamental'
         ]
 
-        self.shims_subdirectory_list = [
+        self.shims_list = [
             'rectangular', 'plates', 'rings', 'tape'
         ]
 
@@ -31,7 +31,7 @@ class MisumiDirectories():
             'metal', 'non-metal_and_collars'
         ]
 
-        self.wiring_components_directory_list = [
+        self.wiring_components_list = [
                 'lan_and_industrial_network_cables',
                 'equipment_specific_cables',
                 'cordsets',
@@ -125,72 +125,73 @@ class MisumiDirectories():
             'raceways', 'raceways_accessories', 'ducts', 'ducts_accessories'
         ]
 
-        # Key is directory's name.
-        # Value is sub-directories list.
-        self.fasteners_directory_dicts = {
-            'hand_tools_for_screws' : None,
-            'hair_pins_and_cotter_pins' : None,
-            'inserts' : self.inserts_subdirectory_list,
-            'machine_keys': None,
-            'nuts' : self.nuts_subdirectory_list,
-            'retaining_rings' : None,
-            'screws_and_bolts' : self.screws_bolts_subdirectory_list,
-            'screw_plug_hardware' : None,
-            'shims' : self.shims_subdirectory_list,
-            'washers' :self.washers_list
-        }
+    def _create_dir(self, dir_name:str):
+        """"
+        Create a directory for datasets if not exists.
 
-        # Key is directory's name.
-        # Value is sub-directories list.
-        self.wiring_directory_dicts = {
-            'lan_industrial_network_cables' : self.lan_and_industrial_network_cables_list,
-            'equipment_specific_cables' : self.equipment_specific_cables_list,
-            'cordsets': self.cordsets_list,
-            'cable_accessories': self.cable_accessories_list,
-            'cable_gland_components' : None,
-            'cable_bushing_clip_stickers': self.cable_bushings_clip_stickers_list,
-            'cable_organization': self.cable_organization_list,
-            'computer_av_cables': self.computer_av_cables_list,
-            'crimp_terminal_components':self.crimp_terminal_components_list,
-            'electrical_conduits': self.electrical_conduits_list,
-            'electrical_tubing': self.electrical_tubing_list,
-            'electrical_wiring_tools':self.electrical_wiring_tools,
-            'screw_spacer_components': None,
-            'soldering_supplies' : self.soldering_supplies_list,
-            'specialized_wiring_tools' : self.specialized_wiring_tools,
-            'wire_cable': self.wire_cable_list,
-            'wiring_connectors': self.wiring_connectors_list,
-            'wire_ducts_cable_raceways': self.wire_ducts_cable_raceways_list
-        }
+        Parameters
+        ---------------
+        dir_name : str
+            directory name
+        """
+        target_dir_path = os.path.join(self.misumi_dataset_rootpath, dir_name)
 
-    def _create_dirs(self, parent_dir : str, sub_dir_list : list= None):
+        if not os.path.exists(target_dir_path):
+            os.mkdir(target_dir_path)
+
+    def _create_dirs(self, dir_name_list : list, suffix : str = None):
         """
         Create directories for datasets
 
         Parameters
         --------------
-        parent_dir : str
-        sub_dir_list : list
+        dir_name_list : list
+            directory name list
+        suffix : str, optional
+            suffix
         """
 
-        target_parent_dir_path = os.path.join(self.misumi_dataset_rootpath, parent_dir)
-        os.makedirs(target_parent_dir_path, exist_ok=True)
+        for directory_name in dir_name_list:
+            if not suffix == None:
+                directory_name = suffix + directory_name
 
-        if sub_dir_list == None:
-            return
-
-        for directory in sub_dir_list:
-            target_dir_path = os.path.join(target_parent_dir_path, directory)
-
-            if not os.path.exists(target_dir_path):
-                os.mkdir(target_dir_path)
+            self._create_dir(directory_name)
 
     def __call__(self):
-        for parent_dir, sub_dir in self.fasteners_directory_dicts.items():
-            self._create_dirs(parent_dir, sub_dir)
+        # create directories
 
-        for parent_dir, sub_dir in self.wiring_directory_dicts.items():
-            self._create_dirs(parent_dir, sub_dir)
+        # fasteners
+        self._create_dir('hand_tools_for_screws')
+        self._create_dir('hair_pins_and_cotter_pins')
+        self._create_dir('machine_keys')
+        self._create_dir('retaining_nuts')
+        self._create_dir('screws_plug_hardware')
+        self._create_dirs(self.inserts_list, suffix='inserts_')
+        self._create_dirs(self.nuts_list, suffix='nuts_')
+        self._create_dirs(self.screws_bolts_list, suffix='screwsBolts_')
+        self._create_dirs(self.shims_list, suffix='shims_')
+        self._create_dirs(self.washers_list, suffix='washers_')
+
+        # wiring components
+        self._create_dir('cable_gland_components')
+        self._create_dir('screw_and_spacer_components')
+        self._create_dirs(self.wiring_components_list, suffix='wiringComponents_')
+        self._create_dirs(self.lan_and_industrial_network_cables_list, suffix='lanAndIndustrial_')
+        self._create_dirs(self.equipment_specific_cables_list, suffix='equipmentSpecific_')
+        self._create_dirs(self.cordsets_list, suffix='cordsets_')
+        self._create_dirs(self.cable_accessories_list, suffix='cableAccessories_')
+        self._create_dirs(self.cable_bushings_clip_stickers_list, suffix='cableBushing_')
+        self._create_dirs(self.cable_organization_list, suffix='cableOrganization_')
+        self._create_dirs(self.computer_av_cables_list, suffix='comAV_')
+        self._create_dirs(self.crimp_terminal_components_list, suffix='crimp_')
+        self._create_dirs(self.electrical_conduits_list, suffix='electricalConduits_')
+        self._create_dirs(self.electrical_tubing_list, suffix='electricalTubing_')
+        self._create_dirs(self.electrical_wiring_tools, suffix='electricalWiring_')
+        self._create_dirs(self.soldering_supplies_list, suffix='soldering_')
+        self._create_dirs(self.specialized_wiring_tools, suffix='specializedWiring_')
+        self._create_dirs(self.wire_cable_list, suffix='wireCable_')
+        self._create_dirs(self.wiring_connectors_list, suffix='wiringConnectors_')
+        self._create_dirs(self.wire_ducts_cable_raceways_list, suffix='wireDucts_')
 
 if __name__ == '__main__':
     misumi_directories = MisumiDirectories("../inputs/misumi_dataset")
