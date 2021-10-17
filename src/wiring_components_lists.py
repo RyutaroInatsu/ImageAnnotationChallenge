@@ -97,7 +97,7 @@ soldering_supplies_list = [
 
 specialized_wiring_tools_list = [
     ['Connector tools', 'コネクタ専用工具'],
-    ['Specilized wiring tool accessories', '専用工具(オプション･その他)'],
+    ['Specialized wiring tool accessories', '専用工具(オプション･その他)'],
     ['Terminal removal tools', '端子引抜工具']
 ]
 
