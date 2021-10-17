@@ -68,9 +68,9 @@ fasteners_dict = {
 	'Inserts' :inserts_list,
 	'Machine keys' : ['Machine keys', 'マシンキー'],
 	'Nuts' : nuts_list,
-	 'Retaining nuts' : ['Retaining nuts', '止め輪･リング'],
+	'Retaining nuts' : ['Retaining nuts', '止め輪･リング'],
 	'Screws and Bolts' : screws_and_bolts_list,
-	 'Screws plug hardware': ['Screws plug hardware', 'スクリュープラグ'],
+	'Screws plug hardware': ['Screws plug hardware', 'スクリュープラグ'],
 	'Shims' : shims_list,
 	'Washers' : washers_list
 }
