@@ -19,7 +19,8 @@ class MisumiDirectories():
             'captive_washer_screws', 'cross_recessed_bolts', 'eye_screws_bolts',
             'fastener_accessories', 'fully-threaded_bolts', 'hex_bolts', 'hex_socket_button_head_cap',
             'hex_socket_flat_head_cap', 'hex_socket_head_cap', 'micro_screws_precise_screws',
-            'plastic_ceramic_screws', 'self_tapping_screws', 'small_head_bolts', 'space_saving_bolts',
+            'plastic_ceramic_screws', 'self_tapping_screws', 'set_screws',
+            'small_head_bolts', 'space_saving_bolts',
             'strippers_reamers_shoulder_bolts', 'tamper_resistant_screws', 'vented_screws', 'wing_thumb_ornamental'
         ]
 
