@@ -12,7 +12,7 @@ class MisumiDirectories():
 
         self.nuts_list = [
             'cylindrical', 'domed', 'flanged', 'hex', 'high_nuts_and_spacer', 'knurled', 'lock',
-            'non-metal', 'rectangular', 'wing', 'weld', 'clinching', 'clip', 'cap', 'washer_based', 'gauge'
+            'non-metal', 'rectangular', 'wing', 'weld', 'rivet', 'clinching', 'clip', 'cap', 'washer_based', 'gauge'
         ]
 
         self.screws_bolts_list = [
@@ -28,7 +28,7 @@ class MisumiDirectories():
         ]
 
         self.washers_list = [
-            'metal', 'non-metal_and_collars'
+            'metal', 'non-metal_and_collars', 'urethane_rubber_sponge_felt'
         ]
 
         self.wiring_components_list = [
@@ -100,7 +100,7 @@ class MisumiDirectories():
         self.electrical_wiring_tools = [
             'cable_tile_tools', 'crimping_idc_tools', 'electrical_wiring_tool_accessories',
             'wire_cutting_tools', 'wiring_connection_screwdrivers', 'wiring_tweezers_wranches',
-            'wiring stripper tools'
+            'wiring_stripper_tools'
         ]
 
         self.soldering_supplies_list = [
@@ -117,8 +117,8 @@ class MisumiDirectories():
         ]
 
         self.wiring_connectors_list = [
-            'circular', 'coaxial', 'connector accessories', 'connector adapters', 'connector caps', 'connector sets',
-            'contacts cap', 'nylon connectors', 'rectangular connectors'
+            'circular', 'coaxial', 'connector_accessories', 'connector_adapters', 'connector_caps', 'connector_sets',
+            'contacts_cap', 'nylon_connectors', 'rectangular_connectors'
         ]
 
         self.wire_ducts_cable_raceways_list = [
@@ -164,7 +164,7 @@ class MisumiDirectories():
         self._create_dir('hand_tools_for_screws')
         self._create_dir('hair_pins_and_cotter_pins')
         self._create_dir('machine_keys')
-        self._create_dir('retaining_nuts')
+        self._create_dir('retaining_rings')
         self._create_dir('screws_plug_hardware')
         self._create_dirs(self.inserts_list, suffix='inserts_')
         self._create_dirs(self.nuts_list, suffix='nuts_')
