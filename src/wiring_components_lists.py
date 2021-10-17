@@ -87,7 +87,7 @@ electrical_wiring_tools_list  = [
     ['Wire cutting tools', '切断工具'],
     ['Wiring connection screwdrivers', 'ドライバー(配線接続用)'],
     ['Wiring tweezers & wranches', 'ピンセット･レンチ'],
-    ['wiring stripper tools', '電線剥き工具']
+    ['Wiring stripper tools', '電線剥き工具']
 ]
 
 soldering_supplies_list = [
