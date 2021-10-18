@@ -1,5 +1,5 @@
 lan_and_indutrial_network_cables_list = [
-    ['LAN cable', 'LANケーブル'],
+    ['LAN cable', 'LANケーブル(コネクタ付)'],
     ['LAN / Network cable', 'LAN･省配線ネットワークケーブル(ケーブル単体)'],
     ['Fiber Optic cable accessories', '光ファイバケーブル(オプション･その他'],
     ['LAN cable and connector accessories', 'LANケーブル･コネクタオプション'],
@@ -25,7 +25,7 @@ equipment_specific_cables_list = [
 
 cordsets_list = [
     ['Circular cordsets', '丸形コネクタ付ケーブル'],
-    ['Coaxial cordsets', '同軸ケーブル'],
+    ['Coaxial cordsets', '同軸コネクタ付ケーブル'],
     ['Conversion & branching cordsets', '変換･分岐ケーブル'],
     ['Nylon connector cordsets', 'ナイロンコネクタ付ケーブル'],
     ['Square cordsets', '角型コネクタ付ケーブル'],
@@ -46,6 +46,11 @@ cable_bushings_clip_and_stickers_list = [
 cable_organization_list = [
     ['Cable ties', '結束バンド'],
     ['Cable tie mounts & accessories', '結束バンド固定具･オプション'],
+]
+
+cable_gland_list = [
+    ["Cable gland components", "ケーブルグランド"],
+    ["Cable gland accessories", "ケーブルグランドオプション"]
 ]
 
 computer_and_AV_cables_list = [
@@ -142,7 +147,7 @@ wiring_component_dict = {
     "Equipment specific cables" : equipment_specific_cables_list,
     "Cordsets" : cordsets_list,
     "Cable accessories" : cable_accessories_list,
-    "Cable gland components" : ["Cable gland components", "ケーブルグランド"],
+    "Cable gland components" : cable_gland_list,
     "Cable bushings, Clip & stickers" : cable_bushings_clip_and_stickers_list,
     "Cable organization" : cable_organization_list,
     "Computer & AV cables" : computer_and_AV_cables_list,
