@@ -2,14 +2,14 @@ from selenium import webdriver
 from selenium.webdriver import ChromeOptions
 from webdriver_manager.chrome import ChromeDriverManager
 
-import os, requests, misumi_directories
+import os, requests, misumi_directories, misumi_url_list
 
 class MisumiScraping():
     """
     Class of scraping from misumi.
     """
 
-    def __ini__(self):
+    def __init__(self):
         # settings
         self.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36"
 
@@ -29,14 +29,14 @@ class MisumiScraping():
             "Accept-Encoding": "gzip, deflate"
         }
 
-    def execute_scraping(self, target_url : str, directory_path : str, scraping_limit :int = 10000):
+    def execute_scraping(self, target_urls : list, directory_path : str, scraping_limit :int = 10000):
         """
         Execute scraping from target url
 
         Parameters
         -----------------
-        target_page_url : str
-            target page of misumi page.(ex: https://jp.misumi-ec.com/vona2/mech_screw/M3303000000/M3303010000/)
+        target_url : list
+            target page list of misumi page.(ex: https://jp.misumi-ec.com/vona2/mech_screw/M3303000000/M3303010000/)
 
         directory_path : str
             saving directory of images
@@ -49,71 +49,115 @@ class MisumiScraping():
             page_count = 1
             saved_image_count = 1
 
-            while True:
-                if saved_image_count > scraping_limit:
-                    print(f"Scraping limit({scraping_limit} has reached.")
-                    break
+            for target_url in target_urls:
+                while True:
+                    if saved_image_count > scraping_limit:
+                        print(f"Scraping limit({scraping_limit} has reached.")
+                        break
 
-                driver.get(target_url + f"/?Page={page_count}")
+                    print(target_url + f"?Page={page_count}")
+                    driver.get(target_url + f"?Page={page_count}")
 
-                # collect source urls of all images.
-                imgs = driver.find_elements_by_xpath("//p[@class='mc-img']/img")
-                print(len(imgs))
+                    # collect source urls of all images.
+                    imgs = driver.find_elements_by_xpath("//p[@class='mc-img']/img")
+                    print(len(imgs))
 
-                if len(img) == 0:
-                    print(f"There is no more page. Page count was {page_count}")
-                    break
+                    if len(imgs) == 0:
+                        print(f"There is no more page. Page count was {page_count}")
+                        break
 
-                for img in imgs:
-                    image_url:str = img.get_attribute("src")
-                    print(image_url)
+                    for img in imgs:
+                        image_url:str = img.get_attribute("src")
+                        print(image_url)
 
-                    # TODO
-                    # high-res: https://content.misumi-ec.com/image/upload/t_product_main/v1/p/jp/product/series/110300259460/110300259460_001.jpg?$product_main$
-                    # low-res: https://content.misumi-ec.com/image/upload/t_product_view_b/v1/p/jp/product/series/110300259460/110300259460_001.jpg?$product_view_b$
+                        # TODO
+                        # high-res: https://content.misumi-ec.com/image/upload/t_product_main/v1/p/jp/product/series/110300259460/110300259460_001.jpg?$product_main$
+                        # low-res: https://content.misumi-ec.com/image/upload/t_product_view_b/v1/p/jp/product/series/110300259460/110300259460_001.jpg?$product_view_b$
 
-                    # save images
-                    response = requests.get(image_url, headers=self.headers)
-                    if response.status_code == 200:
-                        with open(os.path.join(directory_path, f"{str(saved_image_count).zfill(6)}.jpg"), "wb") as file:
-                            file.write(response.content)
-                            saved_image_count += 1
+                        # save images
+                        response = requests.get(image_url, headers=self.headers)
+                        if response.status_code == 200:
+                            with open(os.path.join(directory_path, f"{str(saved_image_count).zfill(6)}.jpg"), "wb") as file:
+                                file.write(response.content)
+                                saved_image_count += 1
+
+                    page_count += 1
 
         except Exception as err:
             print(err)
         finally:
             driver.quit()
 
-    def execute_scraping_target_dictionary(self, target_dictionary : dict):
-        for key, subdirs in target_dictionary.items():
-            print("Folder name:" + key)
-            if subdirs == None:
-                print(os.path.join(misumi_dirs.misumi_dataset_rootpath, key))
-                misumi_scraping.execute_scraping("", os.path.join(misumi_dirs.misumi_dataset_rootpath, key))
-                print("")
-                continue
-
-            print("Sub Folder:")
-            for subdir in subdirs:
-                print(os.path.join(misumi_dirs.misumi_dataset_rootpath, key, subdir))
-                misumi_scraping.execute_scraping("", os.path.join(misumi_dirs.misumi_dataset_rootpath, key, subdir))
-                print("")
-
 if __name__ == '__main__':
     misumi_dirs = misumi_directories.MisumiDirectories("../inputs/misumi_dataset")
     misumi_dirs()
     misumi_scraping = MisumiScraping()
 
-    for key, subdirs in misumi_dirs.wiring_directory_dicts.items():
-        print("Folder name:" + key)
-        if subdirs == None:
-            print(os.path.join(misumi_dirs.misumi_dataset_rootpath, key))
-            misumi_scraping.execute_scraping("", os.path.join(misumi_dirs.misumi_dataset_rootpath, key))
-            print("")
-            continue
+    for dirpath, url_list in misumi_url_list.misumi_dir_url_dict.items():
+        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
 
-        print("Sub Folder:")
-        for subdir in subdirs:
-            print(os.path.join(misumi_dirs.misumi_dataset_rootpath, key, subdir))
-            misumi_scraping.execute_scraping("", os.path.join(misumi_dirs.misumi_dataset_rootpath, key, subdir))
-            print("")
+    for dirpath, url_list in misumi_url_list.cable_accessories_dict.items():
+        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+
+    for dirpath, url_list in misumi_url_list.cable_bushing_dict.items():
+        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+
+    for dirpath, url_list in misumi_url_list.cable_gland_dict.items():
+        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+
+    for dirpath, url_list in misumi_url_list.cable_organization_dict.items():
+        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+
+    for dirpath, url_list in misumi_url_list.computer_av_dict.items():
+        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+
+    for dirpath, url_list in misumi_url_list.cordsets_dict.items():
+        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+
+    for dirpath, url_list in misumi_url_list.crimp_dict.items():
+        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+
+    for dirpath, url_list in misumi_url_list.electrical_conduits_dict.items():
+        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+
+    for dirpath, url_list in misumi_url_list.electrical_tubing_dict.items():
+        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+
+    for dirpath, url_list in misumi_url_list.electrical_wiring_dict.items():
+        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+
+    for dirpath, url_list in misumi_url_list.equipment_specific_dict.items():
+        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+
+    for dirpath, url_list in misumi_url_list.inserts_dict.items():
+        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+
+    for dirpath, url_list in misumi_url_list.lan_industrial_dict.items():
+        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+
+    for dirpath, url_list in misumi_url_list.nuts_dict.items():
+        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+
+    for dirpath, url_list in misumi_url_list.screws_bolts_dict.items():
+        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+
+    for dirpath, url_list in misumi_url_list.shims_dict.items():
+        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+
+    for dirpath, url_list in misumi_url_list.soldering_dict.items():
+        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+
+    for dirpath, url_list in misumi_url_list.specialized_wiring_dict.items():
+        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+
+    for dirpath, url_list in misumi_url_list.washers_dict.items():
+        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+
+    for dirpath, url_list in misumi_url_list.wire_cable_dict.items():
+        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+
+    for dirpath, url_list in misumi_url_list.wire_ducts_dict.items():
+        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+
+    for dirpath, url_list in misumi_url_list.wiring_connectors_dict.items():
+        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
