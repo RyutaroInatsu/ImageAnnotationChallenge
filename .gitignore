@@ -139,4 +139,4 @@ cython_debug/
 
 # personal
 inputs/misumi_dataset
-inputs/misumi_dataset.zip
+inputs/misumi_dataset_origin.zip
