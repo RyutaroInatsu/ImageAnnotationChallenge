@@ -33,24 +33,8 @@ class MisumiDirectories():
         ]
 
         self.wiring_components_list = [
-                'lan_and_industrial_network_cables',
-                'equipment_specific_cables',
-                'cordsets',
-                'cable_accessories',
                 'cable_gland_components',
-                'cable_bushings_clip_and_stickers',
-                'cable_organization',
-                'computer_av_cables',
-                'crimp_terminal_components',
-                'electrical_conduits',
-                'electrical_tubing',
-                'electrical_wiring_tools',
                 'screw_spacer_components',
-                'soldering_supplies',
-                'specialized_wiring_tools',
-                'wire_cable',
-                'wiring_connectors',
-                'wire_ducts_and_cable_raceways'
         ]
 
         self.lan_and_industrial_network_cables_list = [
@@ -79,6 +63,10 @@ class MisumiDirectories():
 
         self.cable_organization_list = [
             'ties', 'tie_mount_accessories'
+        ]
+
+        self.cable_gland_list = [
+            'components', 'accessories'
         ]
 
         self.computer_av_cables_list = [
@@ -174,15 +162,14 @@ class MisumiDirectories():
         self._create_dirs(self.washers_list, suffix='washers_')
 
         # wiring components
-        self._create_dir('cable_gland_components')
-        self._create_dir('screw_and_spacer_components')
-        self._create_dirs(self.wiring_components_list, suffix='wiringComponents_')
+        self._create_dir('wiringComponents_screw_spacer_components')
         self._create_dirs(self.lan_and_industrial_network_cables_list, suffix='lanAndIndustrial_')
         self._create_dirs(self.equipment_specific_cables_list, suffix='equipmentSpecific_')
         self._create_dirs(self.cordsets_list, suffix='cordsets_')
         self._create_dirs(self.cable_accessories_list, suffix='cableAccessories_')
         self._create_dirs(self.cable_bushings_clip_stickers_list, suffix='cableBushing_')
         self._create_dirs(self.cable_organization_list, suffix='cableOrganization_')
+        self._create_dirs(self.cable_gland_list, suffix='cableGland_')
         self._create_dirs(self.computer_av_cables_list, suffix='comAV_')
         self._create_dirs(self.crimp_terminal_components_list, suffix='crimp_')
         self._create_dirs(self.electrical_conduits_list, suffix='electricalConduits_')
