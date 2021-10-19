@@ -93,71 +93,71 @@ if __name__ == '__main__':
     misumi_dirs()
     misumi_scraping = MisumiScraping()
 
-    for dirpath, url_list in misumi_url_list.misumi_dir_url_dict.items():
-        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+    # for dirpath, url_list in misumi_url_list.misumi_dir_url_dict.items():
+    #     misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
 
-    for dirpath, url_list in misumi_url_list.cable_accessories_dict.items():
-        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+    # for dirpath, url_list in misumi_url_list.cable_accessories_dict.items():
+    #     misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
 
-    for dirpath, url_list in misumi_url_list.cable_bushing_dict.items():
-        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+    # for dirpath, url_list in misumi_url_list.cable_bushing_dict.items():
+    #     misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
 
-    for dirpath, url_list in misumi_url_list.cable_gland_dict.items():
-        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+    # for dirpath, url_list in misumi_url_list.cable_gland_dict.items():
+    #     misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
 
-    for dirpath, url_list in misumi_url_list.cable_organization_dict.items():
-        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+    # for dirpath, url_list in misumi_url_list.cable_organization_dict.items():
+    #     misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
 
-    for dirpath, url_list in misumi_url_list.computer_av_dict.items():
-        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+    # for dirpath, url_list in misumi_url_list.computer_av_dict.items():
+    #     misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
 
-    for dirpath, url_list in misumi_url_list.cordsets_dict.items():
-        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+    # for dirpath, url_list in misumi_url_list.cordsets_dict.items():
+    #     misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
 
-    for dirpath, url_list in misumi_url_list.crimp_dict.items():
-        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+    # for dirpath, url_list in misumi_url_list.crimp_dict.items():
+    #     misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
 
-    for dirpath, url_list in misumi_url_list.electrical_conduits_dict.items():
-        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+    # for dirpath, url_list in misumi_url_list.electrical_conduits_dict.items():
+    #     misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
 
-    for dirpath, url_list in misumi_url_list.electrical_tubing_dict.items():
-        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+    # for dirpath, url_list in misumi_url_list.electrical_tubing_dict.items():
+    #     misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
 
-    for dirpath, url_list in misumi_url_list.electrical_wiring_dict.items():
-        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+    # for dirpath, url_list in misumi_url_list.electrical_wiring_dict.items():
+    #     misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
 
-    for dirpath, url_list in misumi_url_list.equipment_specific_dict.items():
-        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+    # for dirpath, url_list in misumi_url_list.equipment_specific_dict.items():
+    #     misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
 
-    for dirpath, url_list in misumi_url_list.inserts_dict.items():
-        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+    # for dirpath, url_list in misumi_url_list.inserts_dict.items():
+    #     misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
 
-    for dirpath, url_list in misumi_url_list.lan_industrial_dict.items():
-        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+    # for dirpath, url_list in misumi_url_list.lan_industrial_dict.items():
+    #     misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
 
-    for dirpath, url_list in misumi_url_list.nuts_dict.items():
-        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+    # for dirpath, url_list in misumi_url_list.nuts_dict.items():
+    #     misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
 
-    for dirpath, url_list in misumi_url_list.screws_bolts_dict.items():
-        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+    # for dirpath, url_list in misumi_url_list.screws_bolts_dict.items():
+    #     misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
 
-    for dirpath, url_list in misumi_url_list.shims_dict.items():
-        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+    # for dirpath, url_list in misumi_url_list.shims_dict.items():
+    #     misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
 
-    for dirpath, url_list in misumi_url_list.soldering_dict.items():
-        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+    # for dirpath, url_list in misumi_url_list.soldering_dict.items():
+    #     misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
 
-    for dirpath, url_list in misumi_url_list.specialized_wiring_dict.items():
-        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+    # for dirpath, url_list in misumi_url_list.specialized_wiring_dict.items():
+    #     misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
 
-    for dirpath, url_list in misumi_url_list.washers_dict.items():
-        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+    # for dirpath, url_list in misumi_url_list.washers_dict.items():
+    #     misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
 
-    for dirpath, url_list in misumi_url_list.wire_cable_dict.items():
-        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+    # for dirpath, url_list in misumi_url_list.wire_cable_dict.items():
+    #     misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
 
-    for dirpath, url_list in misumi_url_list.wire_ducts_dict.items():
-        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+    # for dirpath, url_list in misumi_url_list.wire_ducts_dict.items():
+    #     misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
 
-    for dirpath, url_list in misumi_url_list.wiring_connectors_dict.items():
-        misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
+    # for dirpath, url_list in misumi_url_list.wiring_connectors_dict.items():
+    #     misumi_scraping.execute_scraping(url_list, os.path.join(misumi_dirs.misumi_dataset_rootpath, dirpath))
