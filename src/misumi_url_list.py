@@ -126,7 +126,6 @@ inserts_dict = {
 lan_industrial_dict = {
     'lanAndIndustrial_fiber_optic_cable' : ["https://jp.misumi-ec.com/vona2/el_wire/E1424000000/E1424060000/"],
     'lanAndIndustrial_fiber_optic_cable_accessories' : ["https://jp.misumi-ec.com/vona2/el_wire/E1424000000/E1424070000/"],
-    'lanAndIndustrial_lan_cable_connector_accessories' : ["https://jp.misumi-ec.com/vona2/el_wire/E1424000000/E1424030000/"],
     'lanAndIndustrial_lan_cable_connector_tools' : ["https://jp.misumi-ec.com/vona2/el_wire/E1424000000/E1424030000/E1424030100/"],
     'lanAndIndustrial_lan_cable_with_connector' : ["https://jp.misumi-ec.com/vona2/el_wire/E1424000000/E1424030000/E1424030200/"],
     'lanAndIndustrial_lan_network_cable' : ["https://jp.misumi-ec.com/vona2/el_wire/E1424000000/E1424080000/"],
