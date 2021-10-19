@@ -138,5 +138,6 @@ dmypy.json
 cython_debug/
 
 # personal
+inputs/
 inputs/misumi_dataset
 inputs/misumi_dataset_origin.zip
