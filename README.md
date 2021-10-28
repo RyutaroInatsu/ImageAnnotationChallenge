@@ -13,4 +13,4 @@ The lastest notebook about this project is on Google colab.[![Open in colab](htt
 
 
 ## Flowchart
-<img src="./notebooks/resources/ImageRecognitionChallenge.drawio.png" alt="flowchart" height="750" />
+![diagram](./notebooks/resources/ImageRecognitionChallenge.drawio.svg)
