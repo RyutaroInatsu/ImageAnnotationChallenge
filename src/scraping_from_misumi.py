@@ -1,10 +1,14 @@
+import os
+
+import requests
 from selenium import webdriver
 from selenium.webdriver import ChromeOptions
 from webdriver_manager.chrome import ChromeDriverManager
 
-import os, requests, misumi_directories, misumi_url_list
+import misumi_directories
 
-class MisumiScraping():
+
+class MisumiScraping:
     """
     Class of scraping from misumi.
     """
@@ -15,21 +19,23 @@ class MisumiScraping():
 
         # make headless browser
         self.browser_options = ChromeOptions()
-        self.browser_options.add_argument('--user-agent='+self.user_agent)
-        self.browser_options.add_argument('--disable-extensions')
+        self.browser_options.add_argument("--user-agent=" + self.user_agent)
+        self.browser_options.add_argument("--disable-extensions")
         self.browser_options.set_headless()
 
         # for requests library
         self.headers = {
-            'User-Agent': self.user_agent,
+            "User-Agent": self.user_agent,
             "Upgrade-Insecure-Requests": "1",
             "DNT": "1",
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
             "Accept-Language": "en-US,en;q=0.5",
-            "Accept-Encoding": "gzip, deflate"
+            "Accept-Encoding": "gzip, deflate",
         }
 
-    def execute_scraping(self, target_urls : list, directory_path : str, scraping_limit :int = 10000):
+    def execute_scraping(
+        self, target_urls: list, directory_path: str, scraping_limit: int = 10000
+    ):
         """
         Execute scraping from target url
 
@@ -43,7 +49,9 @@ class MisumiScraping():
         """
 
         try:
-            driver = webdriver.Chrome(ChromeDriverManager().install(), options= self.browser_options)
+            driver = webdriver.Chrome(
+                ChromeDriverManager().install(), options=self.browser_options
+            )
             driver.set_window_size(800, 600)
 
             page_count = 1
@@ -67,7 +75,7 @@ class MisumiScraping():
                         break
 
                     for img in imgs:
-                        image_url:str = img.get_attribute("src")
+                        image_url: str = img.get_attribute("src")
                         print(image_url)
 
                         # TODO
@@ -77,7 +85,13 @@ class MisumiScraping():
                         # save images
                         response = requests.get(image_url, headers=self.headers)
                         if response.status_code == 200:
-                            with open(os.path.join(directory_path, f"{str(saved_image_count).zfill(6)}.jpg"), "wb") as file:
+                            with open(
+                                os.path.join(
+                                    directory_path,
+                                    f"{str(saved_image_count).zfill(6)}.jpg",
+                                ),
+                                "wb",
+                            ) as file:
                                 file.write(response.content)
                                 saved_image_count += 1
 
@@ -88,7 +102,8 @@ class MisumiScraping():
         finally:
             driver.quit()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     misumi_dirs = misumi_directories.MisumiDirectories("../inputs/misumi_dataset")
     misumi_dirs()
     misumi_scraping = MisumiScraping()
