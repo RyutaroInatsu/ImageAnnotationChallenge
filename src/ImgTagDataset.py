@@ -118,10 +118,10 @@ class ImgTagDataModule(pl.LightningDataModule):
             self.test_ds = ImgTagDataset(test_df, self.test_root_dir, self.val_test_transforms)
 
     def train_dataloader(self):
-        return DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True, num_workers=8, pin_memory=True)
+        return DataLoader(self.train_ds, batch_size=self.batch_size, shuffle=True, num_workers=8, pin_memory=True)
 
     def val_dataloader(self):
-        return DataLoader(self.val_dataset, batch_size=self.batch_size, num_workers=8, pin_memory=True)
+        return DataLoader(self.val_ds, batch_size=self.batch_size, num_workers=8, pin_memory=True)
 
     def test_dataloader(self):
-        return DataLoader(self.test_dataset, batch_size=self.batch_size, num_workers=8, pin_memory=True)
+        return DataLoader(self.test_ds, batch_size=self.batch_size, num_workers=8, pin_memory=True)
