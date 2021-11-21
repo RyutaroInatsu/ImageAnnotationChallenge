@@ -1,4 +1,4 @@
-# ImageAnnotationChallenge
+# Image Tagging Challenge
 For workshop
 
 BigData & AILab activity from Sep 29th.
