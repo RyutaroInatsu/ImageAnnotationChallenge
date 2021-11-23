@@ -1,5 +1,4 @@
 import pytorch_lightning as pl
-import torch
 import torch.optim as optim
 from torch import nn
 
