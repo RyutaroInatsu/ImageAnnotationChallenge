@@ -141,3 +141,4 @@ cython_debug/
 inputs/
 inputs/misumi_dataset
 inputs/misumi_dataset_origin.zip
+.vscode/*
