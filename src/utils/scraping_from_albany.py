@@ -17,27 +17,26 @@ headers = {
     "Accept-Encoding": "gzip, deflate",
 }
 
-label_path = "./inputs/fasteners/fasteners_label.csv"
+label_path = "./inputs/albanycountryfasteners/label.csv"
 
-# url = "https://www.albanycountyfasteners.com/Category/Screws_And_Bolts"
+url = "https://www.albanycountyfasteners.com/Category/Screws_And_Bolts"
 # https://www.albanycountyfasteners.com/Category/Screws_And_Bolts?CatListingOffset=288&Offset=288&Per_Page=144&Sort_By=bestsellers
 # url = "https://www.albanycountyfasteners.com/Category/Washers"
-url = "https://www.albanycountyfasteners.com/Category/Nuts"
+# url = "https://www.albanycountyfasteners.com/Category/Nuts"
 
-fastener_attr_list = [
-    "Color",
-    "Drive Style",
-    "Head Style",
-    "Material",
-    "Product Type",
-    "Thread Type",
-]
+fastener_attr_list = {
+    "Color": "",
+    "Drive Style": " drive",
+    "Head Style": " head",
+    "Point Type": " point",
+    "Thread Type": " thread",
+}
 
 session = HTMLSession()
 image_counter = 0
 item_counter = 0
 
-for i in range(0, 2):
+for i in range(0, 10):
     print(f"Now page: {i+1}")
     now_url = url
     if i > 0:
@@ -55,7 +54,7 @@ for i in range(0, 2):
         # for item_url in item_url_list:
         print(f"Item count: {item_counter+1}")
         item_page = session.get(item_url["href"], headers=headers)
-        item_page.html.render(timeout=20)
+        item_page.html.render(timeout=30)
 
         # re
         # -[0-9]-resize
@@ -88,7 +87,7 @@ for i in range(0, 2):
                 continue
 
             tag_list.append(
-                next_element.text.rstrip()
+                next_element.text.rstrip() + fastener_attr_list[attr]
             )  # to remove whitespaces and newlines
 
         # get images
@@ -112,7 +111,7 @@ for i in range(0, 2):
             filename = f"{str(image_counter).zfill(6)}.jpg"
             tag_list[1] = filename
 
-            with open(os.path.join("./inputs/fasteners/nut/", filename), "wb") as file:
+            with open(os.path.join("./inputs/albanycountyfasteners/screw/", filename), "wb") as file:
                 file.write(response.content)
                 image_counter += 1
 
