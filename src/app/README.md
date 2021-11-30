@@ -29,7 +29,9 @@ python send_api.py
 
 ### API sample
 ```shell
-$ python src/demo/send_api.py
+$ python send_api.py
+```
+```shell
 200
 {'predict_class': {'English': ['dessert', 'mountains'], '日本語': ['砂漠', '山']}}
 ```
