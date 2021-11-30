@@ -1,15 +1,16 @@
-import csv
+import json
 
 from commons import get_model, transform_image
 
-from imgtag.ImgTagDataset import convert_onehot_string_labels
+from imgtag.ImgTagDataset import convert_onehot_string_labels_multi
 
-csv_path = "./static/class_name.csv"
-CLASS_NAME = None
-with open(csv_path, "r") as csvfile:
-    CLASS_NAME = [cn for cn in csv.reader(csvfile)][0]
 
-model = get_model(len(CLASS_NAME))
+json_path = "./static/class_name.json"
+json_arr = None
+with open(json_path, 'r', encoding='utf-8') as file:
+    json_arr = json.load(file)
+
+model = get_model(len(json_arr['English']))
 
 
 def get_prediction(image_byte):
@@ -23,6 +24,6 @@ def get_prediction(image_byte):
     pred[pred > 0.5] = 1
     pred[pred <= 0.5] = 0
 
-    labels = convert_onehot_string_labels(CLASS_NAME, pred.detach().numpy())
+    labels = convert_onehot_string_labels_multi(json_arr, pred.detach().numpy())
 
-    return labels
+    return json.loads(labels)

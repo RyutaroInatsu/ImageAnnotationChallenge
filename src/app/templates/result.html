@@ -29,7 +29,8 @@
         <div>
           <img class="mb-4" src="data:;base64, {{ uploaded_image }}"" alt="uploaded image", width="360px">
           <h1 class="h3 mb-3 font-weight-normal">Prediction</h1>
-          <h5 class="h5 mb-3 font-weight-normal">Detected Image: {{ predict_class }}</h5>
+          <h5 class="h5 mb-3 font-weight-normal">Detected Image tags: {{ predict_class['English'] }}</h5>
+          <h5 class="h5 mb-3 font-weight-normal">検出された画像タグ: {{ predict_class['日本語'] }}</h5>
           <!-- <h5 class="h6 mb-3 font-weight-normal">ImageNet Class ID: {{ class_id }}</h5> -->
           <p class="mt-5 mb-3 text-muted">Built using Pytorch, Flask and Love</p>
         </div>

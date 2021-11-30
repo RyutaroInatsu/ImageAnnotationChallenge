@@ -1,4 +1,5 @@
 import os
+import json
 
 import albumentations as alb
 import numpy as np
@@ -35,6 +36,14 @@ def convert_onehot_string_labels(label_string, label_onehot):
     if len(labels) == 0:
         labels.append("NONE")
     return labels
+
+
+def convert_onehot_string_labels_multi(label_string_arr, label_onehot):
+    label_dict = {}
+    for language in label_string_arr:
+        label_dict[language] = convert_onehot_string_labels(label_string_arr[language], label_onehot)
+
+    return json.dumps(label_dict, ensure_ascii=False).encode('utf-8')
 
 
 class ImgTagDataset(Dataset):
