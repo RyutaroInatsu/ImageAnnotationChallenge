@@ -4,21 +4,20 @@ import albumentations as alb
 import numpy as np
 import torch
 from albumentations.pytorch import ToTensorV2
-from imgtag.ImgTagLitModule import ViTNet
+from imgtag.ImgTagLitModule import BeiTNet
 from PIL import Image
-from transformers import ViTModel
+from transformers import BeitModel
 
 IMG_SIZE = 224
 
 
 def get_model(class_num):
     # set up model
-    vit_model = ViTModel.from_pretrained(
-        "google/vit-base-patch16-224-in21k", output_attentions=True
+    beit_model = BeitModel.from_pretrained(
+        'microsoft/beit-base-patch16-224-pt22k-ft22k'
     )
-    model = ViTNet(vit_model, class_num)
-    # model.load_state_dict(torch.load("./static/vit_model.pt"))
-    model.load_state_dict(torch.load("./static/screw_vit_model.pt"))
+    model = BeiTNet(beit_model, class_num)
+    model.load_state_dict(torch.load("./static/screw_beit_model.pt"))
     model.eval()
     return model
 

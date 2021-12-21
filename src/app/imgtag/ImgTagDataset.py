@@ -1,16 +1,21 @@
-import os
 import json
+import os
 
 import albumentations as alb
 import numpy as np
 import pandas as pd
 import pytorch_lightning as pl
 import torch
-from PIL import Image
-from sklearn.preprocessing import MultiLabelBinarizer
-from sklearn.model_selection import train_test_split
-from torch.utils.data import DataLoader, Dataset
 from albumentations.pytorch import ToTensorV2
+from PIL import Image
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MultiLabelBinarizer
+from torch.utils.data import DataLoader, Dataset
+from transformers import BeitFeatureExtractor
+
+beit_feature_extractor = BeitFeatureExtractor.from_pretrained(
+    "microsoft/beit-base-patch16-224-pt22k-ft22k"
+)
 
 
 def binarize_df(label_path):
@@ -19,10 +24,12 @@ def binarize_df(label_path):
     df = df.fillna("None")  # to avoid error
 
     mlb = MultiLabelBinarizer()
-    result = mlb.fit_transform(df.drop(columns=["filenames"]).values)  # drop not tagging cols
+    result = mlb.fit_transform(
+        df.drop(columns=["filenames"]).values
+    )  # drop not tagging cols
 
     bin_df = pd.DataFrame(result, columns=mlb.classes_)  # drop non-useless col.
-    if 'None' in bin_df.columns:
+    if "None" in bin_df.columns:
         bin_df = bin_df.drop("None", axis=1)
 
     return df.drop(df.columns[1:], axis=1).join(bin_df)
@@ -41,9 +48,11 @@ def convert_onehot_string_labels(label_string, label_onehot):
 def convert_onehot_string_labels_multi(label_string_arr, label_onehot):
     label_dict = {}
     for language in label_string_arr:
-        label_dict[language] = convert_onehot_string_labels(label_string_arr[language], label_onehot)
+        label_dict[language] = convert_onehot_string_labels(
+            label_string_arr[language], label_onehot
+        )
 
-    return json.dumps(label_dict, ensure_ascii=False).encode('utf-8')
+    return json.dumps(label_dict, ensure_ascii=False).encode("utf-8")
 
 
 class ImgTagDataset(Dataset):
@@ -71,10 +80,13 @@ class ImgTagDataset(Dataset):
     def __getitem__(self, index):
         d = self.df.iloc[index]
         image = Image.open(
-            os.path.join(self.root_dir, 'images', d["filenames"])
+            os.path.join(self.root_dir, "images", d["filenames"])
         ).convert("RGB")
         image = self.transform(image=np.squeeze(image))["image"]
-        image = np.clip(image, 0, 1)
+        image = beit_feature_extractor(images=image, return_tensors="pt")[
+            "pixel_values"
+        ].squeeze(0)
+        # image = np.clip(image, 0, 1)
         label = torch.tensor(d[1:].tolist(), dtype=torch.float32)
         return image, label
 
@@ -104,7 +116,9 @@ class ImgTagDataModule(pl.LightningDataModule):
         # pre-processing
         self.train_augmentation = alb.Compose(
             [
-                alb.RandomResizedCrop(width=img_size, height=img_size, scale=(0.5, 1.0)),
+                alb.RandomResizedCrop(
+                    width=img_size, height=img_size, scale=(0.5, 1.0)
+                ),
                 alb.SafeRotate(),
                 alb.RandomBrightnessContrast(
                     brightness_limit=0.1, contrast_limit=0.2, p=0.5
@@ -113,7 +127,7 @@ class ImgTagDataModule(pl.LightningDataModule):
                 alb.GaussianBlur(blur_limit=(1, 3)),
                 alb.CLAHE(clip_limit=6.0, tile_grid_size=(8, 8), p=1),
                 alb.HorizontalFlip(),
-                alb.Normalize(mean, std),
+                # alb.Normalize(mean, std),
                 ToTensorV2(),
             ]
         )
@@ -121,7 +135,7 @@ class ImgTagDataModule(pl.LightningDataModule):
         self.test_val_augmentation = alb.Compose(
             [
                 alb.Resize(height=img_size, width=img_size),
-                alb.Normalize(mean=mean, std=std),
+                # alb.Normalize(mean=mean, std=std),
                 ToTensorV2(),
             ]
         )
@@ -131,20 +145,36 @@ class ImgTagDataModule(pl.LightningDataModule):
 
     # Trainer.fit()ではtrain/valのDatasetを、Trainer.test()ではtestのDatasetを生成
     def setup(self, stage=None):
-        if stage == 'fit' or stage is None:
+        if stage == "fit" or stage is None:
             train_df, val_df = train_test_split(self.train_val_df, test_size=0.3)
 
-            self.train_ds = ImgTagDataset(train_df, self.root_dir, self.train_augmentation)
-            self.val_ds = ImgTagDataset(val_df, self.root_dir, self.test_val_augmentation)
+            self.train_ds = ImgTagDataset(
+                train_df, self.root_dir, self.train_augmentation
+            )
+            self.val_ds = ImgTagDataset(
+                val_df, self.root_dir, self.test_val_augmentation
+            )
 
-        if stage == 'test' or stage is None:
-            self.test_ds = ImgTagDataset(self.test_df, self.root_dir, self.test_val_augmentation)
+        if stage == "test" or stage is None:
+            self.test_ds = ImgTagDataset(
+                self.test_df, self.root_dir, self.test_val_augmentation
+            )
 
     def train_dataloader(self):
-        return DataLoader(self.train_ds, batch_size=self.batch_size, shuffle=True, num_workers=0, pin_memory=True)
+        return DataLoader(
+            self.train_ds,
+            batch_size=self.batch_size,
+            shuffle=True,
+            num_workers=0,
+            pin_memory=True,
+        )
 
     def val_dataloader(self):
-        return DataLoader(self.val_ds, batch_size=self.batch_size, num_workers=0, pin_memory=True)
+        return DataLoader(
+            self.val_ds, batch_size=self.batch_size, num_workers=0, pin_memory=True
+        )
 
     def test_dataloader(self):
-        return DataLoader(self.test_ds, batch_size=self.batch_size, num_workers=0, pin_memory=True)
+        return DataLoader(
+            self.test_ds, batch_size=self.batch_size, num_workers=0, pin_memory=True
+        )
