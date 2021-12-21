@@ -17,7 +17,8 @@ def get_model(class_num):
         "google/vit-base-patch16-224-in21k", output_attentions=True
     )
     model = ViTNet(vit_model, class_num)
-    model.load_state_dict(torch.load("./static/vit_model.pt"))
+    # model.load_state_dict(torch.load("./static/vit_model.pt"))
+    model.load_state_dict(torch.load("./static/screw_vit_model.pt"))
     model.eval()
     return model
 
