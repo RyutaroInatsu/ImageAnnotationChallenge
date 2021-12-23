@@ -125,7 +125,7 @@ class ImgTagDataModule(pl.LightningDataModule):
                 ),
                 alb.ImageCompression(quality_lower=90, quality_upper=100, p=0.5),
                 alb.GaussianBlur(blur_limit=(1, 3)),
-                alb.CLAHE(clip_limit=6.0, tile_grid_size=(8, 8), p=1),
+                # alb.CLAHE(clip_limit=6.0, tile_grid_size=(8, 8), p=1),
                 alb.HorizontalFlip(),
                 # alb.Normalize(mean, std),
                 ToTensorV2(),
@@ -146,7 +146,7 @@ class ImgTagDataModule(pl.LightningDataModule):
     # Trainer.fit()ではtrain/valのDatasetを、Trainer.test()ではtestのDatasetを生成
     def setup(self, stage=None):
         if stage == "fit" or stage is None:
-            train_df, val_df = train_test_split(self.train_val_df, test_size=0.3)
+            train_df, val_df = train_test_split(self.train_val_df, test_size=0.2)
 
             self.train_ds = ImgTagDataset(
                 train_df, self.root_dir, self.train_augmentation

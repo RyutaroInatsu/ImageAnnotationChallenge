@@ -11,6 +11,7 @@ class BeiTNet(nn.Module):
             nn.LayerNorm(768, eps=1e-12),
             nn.Linear(768, 768),
             nn.Tanh(),
+            nn.Dropout(p=0.0),
             nn.Linear(768, class_num),
         )
 
@@ -87,7 +88,7 @@ class ImgTagLitModule(pl.LightningModule):
     def configure_optimizers(self):
         optimizer = optim.Adam(
             [
-                {"params": self.net.beit.encoder.layer[-1].parameters(), "lr": 5e-4},
+                {"params": self.net.beit.encoder.layer[-1].parameters(), "lr": 1e-8},
                 {"params": self.net.fc.parameters(), "lr": self.lr},
             ]
         )
