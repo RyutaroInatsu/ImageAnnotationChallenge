@@ -18,7 +18,7 @@ I am the only one in charge of this project, so I'll save the dataset locally.
 The lastest notebook about this project is on Google colab.[![Open in colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1aT0aiAXFJDaW-c9EwMvp66g7KtBhHtpE?usp=sharing)
 
 ## Sample project
-[Here](/src/app)
+[scenery-tagging-app(GitHub)](https://github.com/ryu-i-engineer/scenery-tagging-app)
 
 ## Flowchart
 ![diagram](./notebooks/resources/ImageRecognitionChallenge.drawio.svg)
