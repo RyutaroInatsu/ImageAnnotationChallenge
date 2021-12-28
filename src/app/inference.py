@@ -5,7 +5,7 @@ from commons import get_model, transform_image
 from imgtag.ImgTagDataset import convert_onehot_string_labels_multi
 
 
-json_path = "./static/scenery_class_name.json"
+json_path = "./static/class_name.json"
 # json_path = "./static/screw_class_name.json"
 json_arr = None
 with open(json_path, 'r', encoding='utf-8') as file:

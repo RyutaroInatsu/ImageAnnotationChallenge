@@ -19,7 +19,7 @@ def get_model(class_num):
         "microsoft/beit-base-patch16-224-pt22k-ft22k"
     )
     model = BeiTNet(beit_model, class_num)
-    model.load_state_dict(torch.load("./static/scenery_beit_model.pt"))
+    model.load_state_dict(torch.load("./static/beit_model.pt"))
     model.eval()
     return model
 
