@@ -1,7 +1,7 @@
 # Image Tagging Challenge
 For workshop
 
-BigData & AILab activity from Sep 29th.
+BigData & AILab activity from Sep 29th 2021.
 
 ## To-do list
 1. Create Fasteners and wire components dataset
