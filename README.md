@@ -15,7 +15,7 @@ We focus on fasteners and wire components.
 I am the only one in charge of this project, so I'll save the dataset locally.
 
 ## About notebook
-The lastest notebook about this project is on Google colab.[![Open in colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1aT0aiAXFJDaW-c9EwMvp66g7KtBhHtpE?usp=sharing)
+The lastest notebook about this project is on Google colab.[![Open in colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/18YxYSgaUemib1lpAY4RtaZQZtO86oLsj?usp=sharing)
 
 ## Sample project
 [scenery-tagging-app(GitHub)](https://github.com/ryu-i-engineer/scenery-tagging-app)
