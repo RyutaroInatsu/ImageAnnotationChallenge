@@ -32,6 +32,6 @@ flowchart TD
   F --> G{How much is the loss?};
   G -- Less than 20% --> H[Create pairs of English and Japanese. Like these 1. Sky: 空 2. Mountain: 山 3. River: 川];
   G -- Greater than 20% --> E;
-  H --> I[Create a web app using by created model];
+  H --> I[Create a web app using with created model];
   I --> J[Write an article about this project] --> END;
 ```
