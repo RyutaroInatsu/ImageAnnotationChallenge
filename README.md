@@ -21,4 +21,17 @@ The lastest notebook about this project is on Google colab.[![Open in colab](htt
 [scenery-tagging-app(GitHub)](https://github.com/ryu-i-engineer/scenery-tagging-app)
 
 ## Flowchart
-![diagram](./notebooks/resources/ImageRecognitionChallenge.drawio.svg)
+```mermaid
+flowchart TD
+  A[Start] --> B[Scraping images];
+  B --> C[Data cleaning];
+  C --> D[(Scenry Images Dataset)];
+  D --> E{Is the dataset qualified?};
+  E -- Yes --> F[Create a model and train];
+  E -- No, get more images --> B;
+  F --> G{How much is the loss?};
+  G -- Less than 20% --> H[Create pairs of English and Japanese. Like these 1. Sky: 空 2. Mountain: 山 3. River: 川];
+  G -- Greater than 20% --> E;
+  H --> I[Create a web app using by created model];
+  I --> J[Write an article about this project] --> END;
+```
